@@ -1,0 +1,61 @@
+-- 
+CREATE TABLE Artists (
+    artistID INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+-- 
+CREATE TABLE Genres (
+    genreID INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+-- 
+CREATE TABLE Artist_Genres (
+    artistID INT,
+    genreID INT,
+    PRIMARY KEY (artistID, genreID),
+    FOREIGN KEY (artistID) REFERENCES Artists(artistID),
+    FOREIGN KEY (genreID) REFERENCES Genres(genreID)
+);
+
+-- 
+CREATE TABLE Albums (
+    albumID INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    releaseYear INT
+);
+
+-- 
+CREATE TABLE Artist_Albums (
+    artistID INT,
+    albumID INT,
+    PRIMARY KEY (artistID, albumID),
+    FOREIGN KEY (artistID) REFERENCES Artists(artistID),
+    FOREIGN KEY (albumID) REFERENCES Albums(albumID)
+);
+
+-- 
+CREATE TABLE Tracks (
+    trackID INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    albumID INT,
+    duration INT,
+    FOREIGN KEY (albumID) REFERENCES Albums(albumID)
+);
+
+-- 
+CREATE TABLE Collections (
+    collectionID INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    releaseYear INT
+);
+
+-- 
+CREATE TABLE Collections_Tracks (
+    collectionID INT,
+    trackID INT,
+    PRIMARY KEY (collectionID, trackID),
+    FOREIGN KEY (collectionID) REFERENCES Collections(collectionID),
+    FOREIGN KEY (trackID) REFERENCES Tracks(trackID)
+);
